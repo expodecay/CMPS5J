@@ -29,6 +29,11 @@ public class Note1 extends PApplet {
         line(100, 100, 300, 100);
 
     }
+
+    public static void main(String args[]) {
+        PApplet.main(new String[]{"classnotes.Sept_30.Note1"});
+    }
+}
 /*
 * processing coordinate:
 *       The origin is taken to me the top left of the screen with the positive y-axis downward.
@@ -38,9 +43,4 @@ public class Note1 extends PApplet {
 *       Spaces don't do anything. Commands can be places in the same line, but hinders readability. Java is a "free format"
 *       language, therefore, the amount of whitespace doesn't matter. This style helps with the human reader.
 * */
-
-    public static void main(String args[]) {
-        PApplet.main(new String[]{"classnotes.Sept_30.Note1"});
-    }
-}
 
