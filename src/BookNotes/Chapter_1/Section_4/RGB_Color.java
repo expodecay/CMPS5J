@@ -1,4 +1,5 @@
-package BookNotes.Chapter_1.Section_4; /**
+package BookNotes.Chapter_1.Section_4;
+/**
  * Created by Rick on 10/5/2015.
  */
 
