@@ -33,7 +33,7 @@ public class Note2 extends PApplet {
 
         /* Ellipses */
         ellipseMode(CENTER); // default with ellipse()
-        ellipse(100, 100, 100, 100); // coordinates for bounding box
+        ellipse(100, 100, 100, 100); // coordinates for bounding box ie; rect(top left x, top left y, width, height)
 
         ellipseMode(CENTER);
         stroke(0);
