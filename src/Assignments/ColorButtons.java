@@ -23,6 +23,7 @@ public class ColorButtons extends PApplet {
         size(500, 500);
         rectMode(CENTER);
         smooth();
+        println("black");
 
     }
     public void draw(){
@@ -85,9 +86,10 @@ public class ColorButtons extends PApplet {
         }
     }
     public void mousePressed(){
-        boolean mouseInGreen = mouseX > 212 && mouseX < 288 && mouseY > 212 && mouseY < 288 && mousePressed;
-        boolean mouseInRed = mouseX > 62 && mouseX < 138 & mouseY > 212 && mouseY < 288 && mousePressed;
-        boolean mouseInBlue = mouseX > 362 && mouseX < 438 & mouseY > 212 && mouseY < 288 && mousePressed;
+        boolean mouseInGreen = mouseX > 206 && mouseX < 294 && mouseY > 206 && mouseY < 294 && mousePressed;
+        boolean mouseInRed = mouseX > 56 && mouseX < 146 & mouseY > 206 && mouseY < 294 && mousePressed;
+        boolean mouseInBlue = mouseX > 356 && mouseX < 444 & mouseY > 206 && mouseY < 294 && mousePressed;
+        boolean mouseInRectangle = (mouseInRed || mouseInGreen || mouseInBlue);
 
         if (mouseInGreen){
             greenOn = !greenOn;
@@ -98,28 +100,29 @@ public class ColorButtons extends PApplet {
         if (mouseInBlue){
             blueOn = !blueOn;
         }
-       if (redOn && greenOn && blueOn && (mouseInRed || mouseInGreen || mouseInBlue) ){
+
+       if (redOn && greenOn && blueOn && mouseInRectangle){
            println("white");
        }
-        if (redOn && greenOn && !blueOn && (mouseInRed || mouseInGreen || mouseInBlue)){
+        if (redOn && greenOn && !blueOn && mouseInRectangle){
             println("yellow");
         }
-        if (redOn && blueOn && !greenOn && (mouseInRed || mouseInGreen || mouseInBlue)){
+        if (redOn && blueOn && !greenOn && mouseInRectangle){
             println("magenta");
         }
-        if (greenOn && blueOn && !redOn && (mouseInRed || mouseInGreen || mouseInBlue)){
+        if (greenOn && blueOn && !redOn && mouseInRectangle){
             println("cyan");
         }
-        if (redOn && !greenOn && !blueOn && (mouseInRed || mouseInGreen || mouseInBlue)){
+        if (redOn && !greenOn && !blueOn && mouseInRectangle){
             println("red");
         }
-        if (!redOn && greenOn && !blueOn && (mouseInRed || mouseInGreen || mouseInBlue)){
+        if (!redOn && greenOn && !blueOn && mouseInRectangle){
             println("green");
         }
-        if ( !redOn && !greenOn && blueOn && (mouseInRed || mouseInGreen || mouseInBlue)){
+        if ( !redOn && !greenOn && blueOn && mouseInRectangle){
             println("blue");
         }
-        if (!redOn && !greenOn && !blueOn && (mouseInRed || mouseInGreen || mouseInBlue)){
+        if (!redOn && !greenOn && !blueOn && mouseInRectangle) {
             println("black");
         }
     }
