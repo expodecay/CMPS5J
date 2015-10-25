@@ -10,7 +10,7 @@ package classnotes.Oct_21;
 import processing.core.PApplet;
 
 public class Note_2 extends PApplet {
-    //------------------------------------------------------------------
+//------------------------------------------------------------------
 // GravityBounce (example 5-9 in Learning Processing)
 //------------------------------------------------------------------
 
