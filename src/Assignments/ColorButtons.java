@@ -12,30 +12,37 @@ public class ColorButtons extends PApplet {
     //cmps 5J
     // pa4
 
-    // Initial boolean values are false
+    // Initial boolean values are false.
     boolean redOn;
     boolean greenOn;
     boolean blueOn;
-    int r = 0;
-    int g = 0;
-    int b = 0;
+    // Initial integer values are 0.
+    int r;
+    int g;
+    int b;
     int on = 255;
     int off = 0;
+
     int halfRectWidth = 50;
     int halfStrokeWidth = 6;
     int redRectCenterX = 100;
     int greenRectCenterX = 250;
     int blueRectCenterX = 400;
-
+    // Horizontal coordinates of each rectangle boundary.
+    int greenLeftX = greenRectCenterX - halfRectWidth + halfStrokeWidth;
+    int greenRightX = greenRectCenterX + halfRectWidth - halfStrokeWidth;
+    int redLeftX = redRectCenterX - halfRectWidth + halfStrokeWidth;
+    int redRightX = redRectCenterX + halfRectWidth - halfStrokeWidth;
+    int blueLeftX = blueRectCenterX - halfRectWidth + halfStrokeWidth;
+    int blueRightX = blueRectCenterX + halfRectWidth - halfStrokeWidth;
 
     public void setup(){
         size(500, 500);
         rectMode(CENTER);
-
         println("black");
-
     }
     public void draw(){
+        // Check which rectangle is on and adjust the background accordingly.
         if (redOn){
             r = on;
         }
@@ -56,8 +63,7 @@ public class ColorButtons extends PApplet {
         }
         background(r, g, b);
 
-
-        // Keep the rectangles in view at all times
+        // Keeps the rectangles in view at all times.
         stroke(128);
         strokeWeight(12);
         fill(255, 0, 0);
@@ -91,20 +97,18 @@ public class ColorButtons extends PApplet {
 
         // Note that you need to take HALF of the strokeWidth to create appropriate boundaries.
         // Need to also include mousePressed.
-        boolean mouseInRed = mouseX > (redRectCenterX - halfRectWidth + halfStrokeWidth)
-                && mouseX < (redRectCenterX + halfRectWidth - halfStrokeWidth) & mouseY > (200 + halfStrokeWidth)
+        boolean mouseInGreen = mouseX > greenLeftX && mouseX < greenRightX && mouseY > (200 + halfStrokeWidth)
                     && mouseY < (300 - halfStrokeWidth) && mousePressed;
 
-        boolean mouseInGreen = mouseX > (greenRectCenterX - halfRectWidth + halfStrokeWidth)
-                && mouseX < (greenRectCenterX + halfRectWidth - halfStrokeWidth) && mouseY > (200 + halfStrokeWidth)
-                    && mouseY < (300 - halfStrokeWidth) && mousePressed;
+        boolean mouseInRed = mouseX > redLeftX && mouseX < redRightX & mouseY > (200 + halfStrokeWidth)
+                && mouseY < (300 - halfStrokeWidth) && mousePressed;
 
-        boolean mouseInBlue = mouseX > (blueRectCenterX - halfRectWidth + halfStrokeWidth)
-                && mouseX < (blueRectCenterX + halfRectWidth - halfStrokeWidth) & mouseY > (200 + halfStrokeWidth)
+        boolean mouseInBlue = mouseX > blueLeftX && mouseX < blueRightX & mouseY > (200 + halfStrokeWidth)
                     && mouseY < (300 - halfStrokeWidth) && mousePressed;
 
         boolean mouseInRectangle = (mouseInRed || mouseInGreen || mouseInBlue);
 
+        // On/Off switches
         if (mouseInGreen){
             greenOn = !greenOn;
         }
@@ -115,6 +119,7 @@ public class ColorButtons extends PApplet {
             blueOn = !blueOn;
         }
 
+        //conditional print statements.
         if (redOn && greenOn && blueOn && mouseInRectangle){
            println("white");
         }
