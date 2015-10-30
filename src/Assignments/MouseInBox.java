@@ -7,22 +7,15 @@ import processing.core.PApplet;
 
 public class MouseInBox extends PApplet {
 
-    int x, y, i, j, n, m;
-
-    int len = 20;
-
+    int x, y, i, j, rows, columns, r=1, len=20;
 
     public void setup(){
-        size(700, 700);
+        size(500, 500);
         rectMode(CORNER);
-        len = 20;
-        n = width/len;
-        m = height/len;
-        background(255);
-
-
-        for(i=0; i<n; i++){ // Column loop
-            for(j = 0; j < m; j++){ // Row loop
+        rows = width/len; // 25 rows
+        columns = height/len; // 25 columns
+        for (i=0; i < rows; i++){ // Column loop
+            for (j = 0; j < columns; j++){ // Row loop
                 rect(i * len,j * len, len, len);
             }
         }
@@ -30,40 +23,32 @@ public class MouseInBox extends PApplet {
     public void draw(){
     }
     public void mousePressed(){
-        noStroke();
-        fill(0, 255, 255);
-        for (i = 0; i < 2; i++){
-            for (j = 0; j< 2; j++)
-                /*
-                for (int k = 0; k < 2; k++){
-                    fill(0, 255, 255);
-                    rect((mouseX/len)*len + len * i, (mouseY/len)*len + len * i, len, len);
-                }*/
-
-                rect((mouseX/20)*20, (mouseY/20)*20, 20, 20);
-                rect((mouseX/20)*20-20, (mouseY/20)*20-20, 20, 20);
-                rect((mouseX/20)*20-20, (mouseY/20)*20+20, 20, 20);
-                rect((mouseX/20)*20+20, (mouseY/20)*20+20, 20, 20);
-                rect((mouseX/20)*20+20, (mouseY/20)*20-20, 20, 20);
+        fill(0);
+        for (i = 0; i < 3; i++){ // Up to but not including 3 (can also use i <= 2)
+            for (j = 0; j < 2; j++){
+                fill(0);
+                rect((mouseX/len)*len + len * r*j, (mouseY/len)*len + len * r*j, len, len);
+                rect((mouseX/len)*len - len * r*j, (mouseY/len)*len + len * r*j, len, len);
+            }
+            r*=-1; // Alternates the sign of each rect() argument.
         }
     }
     public void mouseDragged(){
-        noStroke();
         fill(0);
-        for (i = 0; i < 2; i++) {
-            for (j = 0; j < 2; j++)
-                rect((mouseX / 20) * 20, (mouseY / 20) * 20, 20, 20);
-                rect((mouseX / 20) * 20 - 20, (mouseY / 20) * 20 - 20, 20, 20);
-                rect((mouseX / 20) * 20 - 20, (mouseY / 20) * 20 + 20, 20, 20);
-                rect((mouseX / 20) * 20 + 20, (mouseY / 20) * 20 + 20, 20, 20);
-                rect((mouseX / 20) * 20 + 20, (mouseY / 20) * 20 - 20, 20, 20);
+        for (i = 0; i < 3; i++){
+            for (j = 0; j < 2; j++){
+                fill(0);
+                rect((mouseX/len)*len + len * r*j, (mouseY/len)*len + len * r*j, len, len);
+                rect((mouseX/len)*len - len * r*j, (mouseY/len)*len + len * r*j, len, len);
+            }
+            r*=-1;
         }
     }
     public void keyPressed(){
         fill(255);
-        for(i=0; i<n; i++){ // Column loop
-            for(j=0; j<m; j++){ // Row loop
-                rect(i*20,j*20,20,20);
+        for( i=0; i < rows; i++){
+            for (j=0; j < columns; j++){
+                rect(i*len,j*len,len,len);
             }
         }
     }
