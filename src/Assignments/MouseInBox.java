@@ -7,7 +7,7 @@ import processing.core.PApplet;
 
 public class MouseInBox extends PApplet {
 
-    int x, y, i, j, rows, columns, r=1, len=20;
+    int i, j, rows, columns, r=1, len=20;
 
     public void setup(){
         size(500, 500);
