@@ -10,9 +10,9 @@ public class MouseInBox extends PApplet {
     int x, y, i, j, rows, columns, r=1, len=20;
 
     public void setup(){
-        size(500, 500);
+        size(900, 500);
         rectMode(CORNER);
-        rows = width/len; // 25 rows
+        rows = width/len; // 25 rows (adjusts to whatever size the window is set to)
         columns = height/len; // 25 columns
         for (i=0; i < rows; i++){ // Column loop
             for (j = 0; j < columns; j++){ // Row loop
