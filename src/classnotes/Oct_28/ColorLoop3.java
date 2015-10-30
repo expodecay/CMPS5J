@@ -16,7 +16,7 @@ public class ColorLoop3 extends PApplet {
     float x, y, w, h;
 
     public void setup(){
-        size(500,500);
+        size(700,700);
         smooth();
         background(255);
         n = 50;  // number of columns
