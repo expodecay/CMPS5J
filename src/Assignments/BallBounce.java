@@ -15,7 +15,6 @@ public class BallBounce extends PApplet {
     float X, Y, Xspeed, Yspeed, radius;
     // environment variables
     float gravity, stopSpeed, dissipation;
-    boolean InBall;
 
     public void setup() {
         size(500,500);
@@ -63,33 +62,24 @@ public class BallBounce extends PApplet {
         X += Xspeed;
     }
     void updateSpeed(){
-        if ( abs(Xspeed) < stopSpeed ){    // If Xspeed falls below stopSpeed, set to zero.
+        if (abs(Xspeed) < stopSpeed){    // If Xspeed falls below stopSpeed, set to zero.
             Xspeed = 0.0f;
         }
-        if (X > width - 50 || X < 50) { // Keep ball with width boundary
-            Xspeed = Xspeed* -1;
-        }
-        if (X > width - radius || X < 50){
-            Xspeed *= abs(1 - dissipation);
-        }
-        if( abs(Yspeed) < stopSpeed ){    // If Yspeed falls below stopSpeed, set to zero.
+        if(abs(Yspeed) < stopSpeed){    // If Yspeed falls below stopSpeed, set to zero.
             Yspeed = 0.0f;
         }
-        if ( Y > height - radius || Y < 50 ){   // Keep ball within height boundary
+        if (X > width - radius || X < radius) { // Keep ball with width boundary
+            Xspeed = Xspeed* - 1;
+            Xspeed *= abs(1 - dissipation);
+        }
+        if ( Y > height - radius || Y < radius){   // Keep ball within height boundary
             Yspeed *= - abs(1 - dissipation);
         }
         Yspeed += gravity;
     }
     boolean mouseOnBall(){
         float distance = dist(X, Y, mouseX, mouseY);
-        if (abs(distance) < radius) {
-            println(distance);
-            InBall = true;
-        }
-        else {
-            InBall = false;
-        }
-        return InBall;
+        return (abs(distance) < radius); // Returns boolean value of condition.
     }
 
     public static void main(String args[]) {
