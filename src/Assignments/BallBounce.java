@@ -7,13 +7,23 @@ import processing.core.PApplet;
 
 public class BallBounce extends PApplet {
     // ball variables
-    float X, Y, Xspeed, Yspeed;
+    float X, Y, Xspeed, Yspeed, r;
     // environment variables
     float gravity, stopSpeed, dissipation;
-    public void setup() {
-        size(500,500);
-        smooth();
+    boolean InBall;
 
+    public void setup() {
+        size(700,700);
+        smooth();
+        gravity = 0.6f;
+        stopSpeed = 0.2f;
+        dissipation = .08f;
+        r = 50;
+        X = width/2;
+        Y = r;
+        Yspeed = 0;
+        Xspeed = 0;
+        ellipseMode(RADIUS);
         // initialize ball variables
 
         // initialize environment variables
@@ -22,27 +32,67 @@ public class BallBounce extends PApplet {
     public void draw() {
         background(0,255,255);
         displayBall();
-        if( mousePressed && mouseOnBall() ){
+        if ( mousePressed && mouseOnBall() ){
             holdBall();
-        }else{
+        }else {
             moveBall();
             updateSpeed();
         }
     }
     void displayBall(){
-        // your code goes here
+        // display square
+        Y = constrain(Y,r,height-r);
+        X = constrain(X, r, width-r);
+        fill(255, 0, 0);
+        noStroke();
+        ellipse(X, Y, r, r);
     }
     void holdBall(){
-        // your code goes here
+        X = mouseX;
+        Y = mouseY;
+
+        Xspeed =  (X- pmouseX );
+        Yspeed =  (Y - pmouseY );
+
+        println("Xspeed: " + Xspeed);
+
     }
     void moveBall(){
-        // your code goes here
+        Y += Yspeed;
+        X += Xspeed;
     }
     void updateSpeed(){
-        // your code goes here
+        if ( abs(Xspeed) < stopSpeed ){    // If Xspeed falls below stopSpeed, set to zero.
+            Xspeed = 0.0f;
+        }
+
+        if (X > width-50 || X < 50) { // Keep ball with width boundary
+            Xspeed = Xspeed* -1;
+        }
+        /*
+        if (X > width-r || X < 50){
+            Xspeed *= abs(1 - dissipation);
+        }*/
+        /*..................................................................................................*/
+
+        if( abs(Yspeed) < stopSpeed ){    // If Yspeed falls below stopSpeed, set to zero.
+            Yspeed = 0.0f;
+        }
+
+        if ( Y > height-r || Y < 50 ){   // Keep ball within height boundary
+            Yspeed *= -abs(1-dissipation);
+        }
+
+        Yspeed += gravity;
     }
     boolean mouseOnBall(){
-        return true;
+        if (abs(mouseX - X) < 50 || abs(mouseY - Y) < 50){
+            InBall = true;
+        }
+        if (abs(mouseX - X) > 50 || abs(mouseY - Y) > 50) {
+            InBall = false;
+        }
+        return InBall;
     }
 
 
