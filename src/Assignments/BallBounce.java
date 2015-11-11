@@ -6,31 +6,35 @@ package Assignments;
 import processing.core.PApplet;
 
 public class BallBounce extends PApplet {
+
+    // riryrami
+    // cmps 5J
+    // pa6
+
     // ball variables
-    float X, Y, Xspeed, Yspeed, r;
+    float X, Y, Xspeed, Yspeed, radius;
     // environment variables
     float gravity, stopSpeed, dissipation;
     boolean InBall;
 
     public void setup() {
-        size(700,700);
+        size(500,500);
         smooth();
+        ellipseMode(RADIUS);
+        // initialize ball variables
+        radius = 50;
+        X = width/2;
+        Y = radius;
+        Yspeed = 0;
+        Xspeed = 0;
+        // initialize environment variables
         gravity = 0.6f;
         stopSpeed = 0.2f;
         dissipation = .08f;
-        r = 50;
-        X = width/2;
-        Y = r;
-        Yspeed = 0;
-        Xspeed = 0;
-        ellipseMode(RADIUS);
-        // initialize ball variables
-
-        // initialize environment variables
     }
     // do not change this function
     public void draw() {
-        background(0,255,255);
+        background(0, 255, 255);
         displayBall();
         if ( mousePressed && mouseOnBall() ){
             holdBall();
@@ -40,23 +44,20 @@ public class BallBounce extends PApplet {
         }
     }
     void displayBall(){
-        // display square
-        Y = constrain(Y,r,height-r);
-        X = constrain(X, r, width-r);
+        Y = constrain(Y, radius ,height-radius);    // keep Y within (0, height)
+        X = constrain(X, radius , width - radius);  // keep X within (0, width)
         fill(255, 0, 0);
         noStroke();
-        ellipse(X, Y, r, r);
+        ellipse(X, Y, radius, radius);
     }
+
     void holdBall(){
         X = mouseX;
         Y = mouseY;
-
-        Xspeed =  (X- pmouseX );
+        Xspeed =  (X - pmouseX ); // Difference must be in this order to preserve direction.
         Yspeed =  (Y - pmouseY );
-
-        println("Xspeed: " + Xspeed);
-
     }
+
     void moveBall(){
         Y += Yspeed;
         X += Xspeed;
@@ -65,36 +66,31 @@ public class BallBounce extends PApplet {
         if ( abs(Xspeed) < stopSpeed ){    // If Xspeed falls below stopSpeed, set to zero.
             Xspeed = 0.0f;
         }
-
-        if (X > width-50 || X < 50) { // Keep ball with width boundary
+        if (X > width - 50 || X < 50) { // Keep ball with width boundary
             Xspeed = Xspeed* -1;
         }
-        /*
-        if (X > width-r || X < 50){
+        if (X > width - radius || X < 50){
             Xspeed *= abs(1 - dissipation);
-        }*/
-        /*..................................................................................................*/
-
+        }
         if( abs(Yspeed) < stopSpeed ){    // If Yspeed falls below stopSpeed, set to zero.
             Yspeed = 0.0f;
         }
-
-        if ( Y > height-r || Y < 50 ){   // Keep ball within height boundary
-            Yspeed *= -abs(1-dissipation);
+        if ( Y > height - radius || Y < 50 ){   // Keep ball within height boundary
+            Yspeed *= - abs(1 - dissipation);
         }
-
         Yspeed += gravity;
     }
     boolean mouseOnBall(){
-        if (abs(mouseX - X) < 50 || abs(mouseY - Y) < 50){
+        float distance = dist(X, Y, mouseX, mouseY);
+        if (abs(distance) < radius) {
+            println(distance);
             InBall = true;
         }
-        if (abs(mouseX - X) > 50 || abs(mouseY - Y) > 50) {
+        else {
             InBall = false;
         }
         return InBall;
     }
-
 
     public static void main(String args[]) {
         PApplet.main(new String[]{"Assignments.BallBounce"});
