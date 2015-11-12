@@ -49,14 +49,12 @@ public class BallBounce extends PApplet {
         noStroke();
         ellipse(X, Y, radius, radius);
     }
-
     void holdBall(){
         X = mouseX;
         Y = mouseY;
         Xspeed =  (X - pmouseX ); // Difference must be in this order to preserve direction.
         Yspeed =  (Y - pmouseY );
     }
-
     void moveBall(){
         Y += Yspeed;
         X += Xspeed;
