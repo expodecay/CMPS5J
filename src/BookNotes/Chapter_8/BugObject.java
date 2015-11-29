@@ -7,25 +7,45 @@ import processing.core.PApplet;
 
 public class BugObject extends PApplet {
 
-    int n = 1;
-    Bug[] B = new Bug[n];
+// BugHunt
+// CMPS 5J
+// pa7
+
+    int n = 30;            // number of bugs
+    Bug[] B = new Bug[n];  // bug array
+    int clickCount = 0;
+    int deadCount = 0;
+    float killRate;
+
     public void setup(){
         size(500,500);
-        for(int i = 0; i<n; i++) {
-            B[i] = new Bug(random(20, 480), random(20, 480), (int)random(1,5));
+        smooth();
+        for(int i=0; i<n; i++){
+            B[i] = new Bug(random(20,480),random(20,480),(int)random(1,5));
         }
-
     }
-    public void draw(){
-        background(255);
-        for (int i = 0; i<n; i++){
+
+   public  void draw(){
+        background(170);
+        for(int i=0; i<n; i++){
             B[i].display();
             B[i].crawl();
-            B[i].runAway();
         }
     }
 
-
+    public void mousePressed(){
+        clickCount++;
+        for(int i=0; i<n; i++){
+            if( B[i].mouseOn() ){
+                B[i].squash();
+                deadCount++;
+            }else if( B[i].scared() ){
+                B[i].runAway();
+            }
+        }
+        killRate = (float)(deadCount)/clickCount;
+        println("kill rate = "+killRate+" bugs per click");
+    }
     class Bug {
         // fields
         int BugLength = 30;
@@ -50,7 +70,7 @@ public class BugObject extends PApplet {
             if (s == 1) {
                 x += speed;
                 if (x > width + BugLength) {
-                    x = 0 - BugLength;
+                    x = 0 - 2*BugLength;
                 }
             }
             if (s == 2) {
@@ -77,7 +97,7 @@ public class BugObject extends PApplet {
             if (s == 1) {
                 fill(c);
                 ellipseMode(CENTER);
-                for (float i = x-BugWidth/2; i < x+BugWidth; i+=10){
+                for (float i = x-BugWidth/2; i < x+BugLength/2; i+=10){
                     stroke(0);
                     line(i,y-15, i, y+15);
                 }
@@ -86,16 +106,16 @@ public class BugObject extends PApplet {
             if (s == 2) {
                 fill(c);
                 ellipseMode(CENTER);
-                for (float i = x-BugWidth/2; i < x+BugWidth; i+=10){
+                for (float i = x-BugLength/2; i < x+BugWidth/2; i+=10){
                     stroke(0);
-                    line(i,y-15, i, y+15);
+                    line(i+5,y-15, i+5, y+15);
                 }
                 ellipse(x, y, BugLength, BugWidth);
             }
             if (s == 3) {
                 fill(c);
                 ellipseMode(CENTER);
-                for (float i = y-BugWidth/2; i < y+BugWidth; i+=10){
+                for (float i = y-BugWidth/2; i < y+BugLength/2; i+=10){
                     stroke(0);
                     line(x-15,i, x+15, i);
                 }
@@ -104,16 +124,12 @@ public class BugObject extends PApplet {
             if (s == 4) {
                 fill(c);
                 ellipseMode(CENTER);
-                for (float i = y-BugWidth/2; i < y+BugWidth; i+=10){
+                for (float i = y-BugLength/2; i < y+BugWidth/2; i+=10){
                     stroke(0);
-                    line(x-15,i, x+15, i);
+                    line(x-15,i+5, x+15, i+5);
                 }
                 ellipse(x, y, BugWidth, BugLength);
             }
-            if (s == 0){
-                // don't display bug
-            }
-            println(speed);
         }
         void squash() {
            if (mouseOn()){
@@ -122,7 +138,7 @@ public class BugObject extends PApplet {
         }
         void runAway() {
             if (scared() && mousePressed){
-                speed *= 2;
+                speed *= 1.5;
                 println("scared");
             }
         }
