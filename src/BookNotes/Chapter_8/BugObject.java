@@ -142,7 +142,6 @@ public class BugObject extends PApplet {
                 println("scared");
             }
         }
-
         boolean mouseOn() {
             // if bug is alive and mouse within 15 pixels of center.
             return (abs(dist(x, y, mouseX, mouseY)) < 15);
