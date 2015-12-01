@@ -75,6 +75,7 @@ public class MovingTriangle extends PApplet {
     }
     public void mousePressed(){
         state *= -1;
+
     }
 
     public static void main(String args[]) {
