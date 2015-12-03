@@ -6,12 +6,10 @@ package Assignments;
 import processing.core.PApplet;
 
 public class MovingTriangle extends PApplet {
-    //--------------------------------------------------------------
-// SquareFollowingEdge (example 5-8 in Learning Processing)
-//--------------------------------------------------------------
 
-    int x = 0;  // x location of square
-    int y = 0;  // y location of square
+
+    int x = 0;
+    int y = 0;
 
     int a = 0;
     int b = 0;
@@ -20,12 +18,11 @@ public class MovingTriangle extends PApplet {
     int e = 400;
     int f = 400;
 
-    int speed = 3;  // speed of square
-    int state = 1;  // "state" of square (0, 1, 2, or 3)
+    int speed = 3;
+    int state = 1;
 
     public void setup() {
         size(400,400);
-        //frameRate(10);
     }
 
    public void draw() {
@@ -33,34 +30,34 @@ public class MovingTriangle extends PApplet {
        fill(255,0,255);
        triangle(a, b, c, d, e, f);
 
-        // Display the square
+
         stroke(0);
-        fill(0);
-        // change position, change state if necessary
-        if (state == 1) {        // moving left to right
+
+
+        if (state == 1) {
             a += speed;
-            if (a > width && c == 0) {    // if right side hit, change state
+            if (a > width && c == 0) {
                 a = width;
                 state = 2;
             }
         }
-        else if (state == 2) { // moving top to bottom
+        else if (state == 2) {
             d -= speed;
-            if (d < 0) {   // if bottom hit, change state
+            if (d < 0) {
                 d = 0;
                 state = 3;
             }
         }
-        else if (state == 3) { // moving right to left
+        else if (state == 3) {
             e -= speed;
-            if (e < 0) {           // if left side hit, change state
+            if (e < 0) {
                 e = 0;
                 state = 4;
             }
         }
-        else if (state == 4) { // moving bottom to top
+        else if (state == 4) {
             b += speed;
-            if (b > height) {           // if top hit, change state
+            if (b > height) {
                 b = height;
                 state = 1;
                 a = c;
@@ -70,7 +67,6 @@ public class MovingTriangle extends PApplet {
                 e = 400;
                 f = 400;
             }
-
         }
     }
     public void mousePressed(){
